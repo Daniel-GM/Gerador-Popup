@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Cardium B';
+  src: url('/fonts/cardiumb-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cardium B';
+  src: url('/fonts/cardiumb-medium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cardium B';
+  src: url('/fonts/cardiumb-medium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cardium B';
+  src: url('/fonts/cardiumb-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Comfortaa';
+  src: url('/fonts/Comfortaa-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+.font-cardium-400 {
+  font-family: 'Cardium B', sans-serif;
+  font-weight: 400;
+}
+
+.font-cardium-500 {
+  font-family: 'Cardium B', sans-serif;
+  font-weight: 500;
+}
+
+.font-cardium-700 {
+  font-family: 'Cardium B', sans-serif;
+  font-weight: 700;
+}
+
+.font-comfortaa-400 {
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 400;
+}
+
+.card {
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}

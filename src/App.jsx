@@ -1,0 +1,199 @@
+// importing icons
+import iconOptions from './assets/components/iconOptions'
+
+// importing React
+import { useState } from 'react'
+import Container from './assets/components/Container'
+import PopupViewer from './assets/components/PopupViewer'
+
+function App() {
+  const [logo, setLogo] = useState('/logo/logo.png')
+  const [backgroundContainer, setBackgroundContainer] = useState('#ffffff')
+  const [backgroundIcons, setBackgroundIcons] = useState('#017365')
+  const [textArray, setTextArray] = useState({
+    header: [
+      { id: 1, size: '53', weight: 'font-cardium-400', label: 'Seja Bem Vindo(a) ao Pede Aí,', color: '#017365', },
+      { id: 2, size: '58', weight: 'font-cardium-500', label: 'Petiscaria Gastrobar!', color: '#000000', },
+    ],
+    intro: [
+      { id: 3, size: '50', weight: 'font-cardium-400', label: 'É Simples, rápido e fácil.', color: '#000000', },
+      { id: 4, size: '46', weight: 'font-cardium-500', label: 'Saiba como realizar o seu pedido:', color: '#017365', },
+    ],
+    step: [
+      {
+        id: 5,
+        size: '56',
+        weight: 'font-cardium-500',
+        label: 'Escolha o que deseja.',
+        number: '1',
+        color: '#000000',
+        icons: ['', '', ''],
+      },
+      {
+        id: 6,
+        size: '56',
+        weight: 'font-cardium-500',
+        label: 'Escolha como pagar.',
+        number: '2',
+        color: '#000000',
+        icons: ['/icons/payment/cartao-de-debito.png', '/icons/payment/pagamento.png', '/icons/payment/pix.png'],
+      },
+      {
+        id: 7,
+        size: '56',
+        weight: 'font-cardium-500',
+        label: 'Finalize o seu pedido',
+        number: '3',
+        color: '#000000',
+        icons: ['/icons/finish/ok.png', '/icons/finish/gps.png', '/icons/finish/fav.png'],
+      },
+    ],
+    footer: [
+      { id: 8, size: '42', weight: 'font-cardium-400', label: 'Depois que finalizar é só aguardar que', color: '#017365', },
+      { id: 9, size: '46', weight: 'font-cardium-400', label: 'entregamos para você!', color: '#000000', },
+    ],
+    button: [
+      { id: 10, size: '60', weight: 'font-comfortaa-400', label: 'Pede Aí', color: '#000000', backgroundColor: '#017365' },
+    ]
+  })
+
+  const handleTextColorChange = (e) => {
+    const newColor = e.target.value
+    setTextArray(prevTextArray => ({
+      ...prevTextArray,
+      header: prevTextArray.header.map((item, index) =>
+        index === 0 ? { ...item, color: newColor } : item
+      ),
+      intro: prevTextArray.intro.map((item, index) =>
+        index === 1 ? { ...item, color: newColor } : item
+      ),
+      footer: prevTextArray.footer.map((item, index) =>
+        index === 0 ? { ...item, color: newColor } : item
+      ),
+      button: prevTextArray.button.map((item, index) =>
+        index === 0 ? { ...item, backgroundColor: newColor } : item
+      ),
+    }))
+    handleBackgroundColorIconChange(newColor)
+  }
+
+  const handleBackgroundColorIconChange = (newColor) => {
+    setBackgroundIcons(newColor)
+  }
+
+  const handleBackgroundColorContainerChange = (e) => {
+    const newColor = e.targer.value
+    setBackgroundContainer(newColor)
+  }
+
+  const handleLogoChange = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      console.log("Tipo de arquivo:", file.type)
+      if (file.type.startsWith('image/')) {
+
+        const imageUrl = URL.createObjectURL(file)
+        setLogo(imageUrl)
+      } else {
+        alert('Por favor, selecione um arquivo de imagem (ex.: .jpg, .png).')
+        setLogo(null)
+      }
+    }
+  }
+
+  const handleIconChange = (e, stepIndex, iconIndex) => {
+    const newIcon = e.target.value;
+    setTextArray(prevTextArray => ({
+      ...prevTextArray,
+      step: prevTextArray.step.map((stepItem, index) => {
+        if (index !== stepIndex) return stepItem
+
+        const newIcons = [...stepItem.icons]
+        newIcons[iconIndex] = newIcon
+        return {
+          ...stepItem,
+          icons: newIcons
+        }
+      })
+    }))
+  }
+
+  return (
+    <>
+      <div className="min-h-screen bg-gray-900 h-full">
+        <div className="container mx-auto p-6 h-full md:w-auto w-full">
+          <div className="grid grid-cols-1 h-full">
+            <Container additionalStyle='grid grid-cols-3 gap-4 bg-gray-800/50 p-6'>
+              <h1 className="text-3xl col-span-3 text-white font-semibold">Configurações</h1>
+
+              {/* Logo config */}
+              <Container additionalStyle='bg-gray-900/50 p-4'>
+                <h2 className="text-xl col-span-3 text-white font-semibold mb-2">Logo do cliente</h2>
+                <div className='flex flex-col justify-center items-center gap-3'>
+                  <input
+                    id="logo"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleLogoChange}
+                  />
+                  <img
+                    src={logo}
+                    alt="logo"
+                    className='w-[115px] h-[115px]'
+                    onClick={handleLogoChange}
+                  />
+                  <button
+                    name="logo"
+                    className='bg-white text-black px-2 py-1 rounded-2xl cursor-pointer w-full'
+                    onClick={() => document.getElementById("logo").click()}
+                  >
+                    Adicionar a logo do cliente
+                  </button>
+                </div>
+              </Container>
+
+              {/* Color config */}
+              <Container additionalStyle='bg-gray-900/50 p-4'>
+                <h2 className="text-xl col-span-3 text-white font-semibold">Cor do texto</h2>
+                <input
+                  type='color'
+                  value={textArray.header[0].color}
+                  onChange={handleTextColorChange}
+                />
+              </Container>
+
+              {/* icons config */}
+              <Container additionalStyle='bg-gray-900/50 p-4 mb-2'>
+                <h2 className="text-xl col-span-3 text-white font-semibold">Icones</h2>
+                <div className='flex flex-col gap-3'>
+                  {textArray.step[0].icons.map((icon, index) => (
+                    <div key={index} className='w-full'>
+                      <h3 className='text-white'>Icone {index + 1}</h3>
+                      <select
+                        key={index}
+                        className='bg-white rounded-2xl px-3 py-1 w-full'
+                        onChange={(e) => handleIconChange(e, 0, index)}
+                      >
+                        {iconOptions.map((option, index) => (
+                          <option key={index} value={option.icon}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ))}
+                </div>
+              </Container>
+            </Container>
+            <Container additionalStyle='bg-gray-800/50 p-6'>
+              <PopupViewer logo={logo} textArray={textArray} backgroundContainer={backgroundContainer} backgroundIcons={backgroundIcons} />
+            </Container>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default App
