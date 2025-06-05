@@ -1,7 +1,7 @@
 import Span from "./Span"
 import TextContainer from "./TextContainer"
 
-const PopupViewer = ({ logo, textArray, backgroundContainer, backgroundIcons }) => {
+const PopupViewer = ({ logo, textArray, backgroundContainer, colorIcons, backgroundIcons }) => {
 
   const stylesBackground = {
     backgroundColor: backgroundContainer || '#ffffff'
@@ -90,6 +90,9 @@ const PopupViewer = ({ logo, textArray, backgroundContainer, backgroundIcons }) 
                   >
                     <img
                       key={index}
+                      style={{
+                        filter: colorIcons === "#ffffff" ? 'invert(1)' : 'invert(0)'
+                      }}
                       className={`w-[80px]`}
                       src={icon || null}
                     />

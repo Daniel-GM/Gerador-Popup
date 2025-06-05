@@ -9,6 +9,7 @@ import PopupViewer from './assets/components/PopupViewer'
 function App() {
   const [logo, setLogo] = useState('/logo/logo.png')
   const [backgroundContainer, setBackgroundContainer] = useState('#ffffff')
+  const [colorIcons, setColorIcons] = useState('#000000')
   const [backgroundIcons, setBackgroundIcons] = useState('#017365')
   const [textArray, setTextArray] = useState({
     header: [
@@ -129,6 +130,7 @@ function App() {
   }
 
   const handleBlackWhiteChange = (newColor) => {
+    setColorIcons(newColor)
     setTextArray(prevTextArray => ({
       ...prevTextArray,
       header: prevTextArray.header.map((item, index) =>
@@ -225,7 +227,7 @@ function App() {
               </Container>
             </Container>
             <Container additionalStyle='bg-gray-800/50 p-6'>
-              <PopupViewer logo={logo} textArray={textArray} backgroundContainer={backgroundContainer} backgroundIcons={backgroundIcons} />
+              <PopupViewer logo={logo} textArray={textArray} backgroundContainer={backgroundContainer} colorIcons={colorIcons} backgroundIcons={backgroundIcons} />
             </Container>
           </div>
         </div>
