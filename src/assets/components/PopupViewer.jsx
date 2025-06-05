@@ -91,7 +91,7 @@ const PopupViewer = ({ logo, textArray, backgroundContainer, colorIcons, backgro
                     <img
                       key={index}
                       style={{
-                        filter: colorIcons === "#ffffff" ? 'invert(1)' : 'invert(0)'
+                        filter: colorIcons === "#ffffff" ? 'invert(1)' : 'brightness(0)'
                       }}
                       className={`w-[80px]`}
                       src={icon || null}

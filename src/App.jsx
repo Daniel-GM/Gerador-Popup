@@ -28,7 +28,7 @@ function App() {
         label: 'Escolha o que deseja.',
         number: '1',
         color: '#000000',
-        icons: ['', '', ''],
+        icons: [],
       },
       {
         id: 6,
@@ -57,6 +57,31 @@ function App() {
       { id: 10, size: '60', weight: 'font-comfortaa-400', label: 'Pede Aí', color: '#000000', backgroundColor: '#017365' },
     ]
   })
+
+  const handleIconChange = (iconSelected) => {
+    setTextArray(prevTextArray => {
+      const currentIcons = prevTextArray.step[0].icons || []
+      let updatedIcons
+
+      if (currentIcons.includes(iconSelected)) {
+        updatedIcons = currentIcons.filter(icon => icon !== iconSelected)
+      } else {
+        if (currentIcons.length >= 3) return prevTextArray
+        updatedIcons = [...currentIcons, iconSelected]
+      }
+
+      const updatedSteps = [...prevTextArray.step]
+      updatedSteps[0] = {
+        ...updatedSteps[0],
+        icons: updatedIcons
+      }
+
+      return {
+        ...prevTextArray,
+        step: updatedSteps
+      }
+    })
+  }
 
   const handleTextColorChange = (e) => {
     const newColor = e.target.value
@@ -103,22 +128,22 @@ function App() {
     }
   }
 
-  const handleIconChange = (e, stepIndex, iconIndex) => {
-    const newIcon = e.target.value;
-    setTextArray(prevTextArray => ({
-      ...prevTextArray,
-      step: prevTextArray.step.map((stepItem, index) => {
-        if (index !== stepIndex) return stepItem
+  // const handleIconChange = (e, stepIndex, iconIndex) => {
+  //   const newIcon = e.target.value
+  //   setTextArray(prevTextArray => ({
+  //     ...prevTextArray,
+  //     step: prevTextArray.step.map((stepItem, index) => {
+  //       if (index !== stepIndex) return stepItem
 
-        const newIcons = [...stepItem.icons]
-        newIcons[iconIndex] = newIcon
-        return {
-          ...stepItem,
-          icons: newIcons
-        }
-      })
-    }))
-  }
+  //       const newIcons = [...stepItem.icons]
+  //       newIcons[iconIndex] = newIcon
+  //       return {
+  //         ...stepItem,
+  //         icons: newIcons
+  //       }
+  //     })
+  //   }))
+  // }
 
   const handleCalculateContrast = (e) => {
     const hex = e.replace('#', '')
@@ -140,7 +165,7 @@ function App() {
         index === 0 ? { ...item, color: newColor } : item
       ),
       step: prevTextArray.step.map((item, index) => (
-        {...item, color: newColor}
+        { ...item, color: newColor }
       )),
       footer: prevTextArray.footer.map((item, index) =>
         index === 1 ? { ...item, color: newColor } : item
@@ -207,22 +232,29 @@ function App() {
               <Container additionalStyle='bg-gray-900/50 p-4 mb-2'>
                 <h2 className="text-xl col-span-3 text-white font-semibold">Icones</h2>
                 <div className='flex flex-col gap-3'>
-                  {textArray.step[0].icons.map((icon, index) => (
-                    <div key={index} className='w-full'>
-                      <h3 className='text-white'>Icone {index + 1}</h3>
-                      <select
-                        key={index}
-                        className='bg-white rounded-2xl px-3 py-1 w-full'
-                        onChange={(e) => handleIconChange(e, 0, index)}
-                      >
-                        {iconOptions.map((option, index) => (
-                          <option key={index} value={option.icon}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  ))}
+                  <div className='w-full flex flex-wrap items-center p-2 gap-6 overflow-auto h-[160px]'>
+                    {iconOptions.map((option, index) => {
+                      const isSelected = textArray.step[0].icons.includes(option.icon)
+                      return (
+                        <div
+                          key={index}
+                          className={`bg-white p-3 rounded-full h-[72px] ${isSelected ? 'ring-4 ring-green-500' : ''}`}
+                          style={{
+                            backgroundColor: colorIcons === "#ffffff" ? '#000000' : '#ffffff'
+                          }}
+                          onClick={() => handleIconChange(option.icon)}
+                        >
+                          <img
+                            src={option.icon || null}
+                            className='w-12'
+                            style={{
+                              filter: colorIcons === "#ffffff" ? 'invert(1)' : 'brightness(0)'
+                            }}
+                          />
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
               </Container>
             </Container>
