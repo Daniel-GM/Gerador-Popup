@@ -82,8 +82,9 @@ function App() {
   }
 
   const handleBackgroundColorContainerChange = (e) => {
-    const newColor = e.targer.value
+    const newColor = e.target.value
     setBackgroundContainer(newColor)
+    handleCalculateContrast(newColor)
   }
 
   const handleLogoChange = (e) => {
@@ -115,6 +116,36 @@ function App() {
           icons: newIcons
         }
       })
+    }))
+  }
+
+  const handleCalculateContrast = (e) => {
+    const hex = e.replace('#', '')
+    const red = parseInt(hex.substring(0, 2), 16)
+    const green = parseInt(hex.substring(2, 4), 16)
+    const blue = parseInt(hex.substring(4, 6), 16)
+    const luminance = 0.2126 * red + 0.7152 * green + 0.0722 * blue
+    handleBlackWhiteChange(luminance > 127.5 ? "#000000" : "#ffffff")
+  }
+
+  const handleBlackWhiteChange = (newColor) => {
+    setTextArray(prevTextArray => ({
+      ...prevTextArray,
+      header: prevTextArray.header.map((item, index) =>
+        index === 1 ? { ...item, color: newColor } : item
+      ),
+      intro: prevTextArray.intro.map((item, index) =>
+        index === 0 ? { ...item, color: newColor } : item
+      ),
+      step: prevTextArray.step.map((item, index) => (
+        {...item, color: newColor}
+      )),
+      footer: prevTextArray.footer.map((item, index) =>
+        index === 1 ? { ...item, color: newColor } : item
+      ),
+      button: prevTextArray.button.map((item, index) =>
+        index === 0 ? { ...item, color: newColor } : item
+      ),
     }))
   }
 
@@ -155,11 +186,18 @@ function App() {
 
               {/* Color config */}
               <Container additionalStyle='bg-gray-900/50 p-4'>
-                <h2 className="text-xl col-span-3 text-white font-semibold">Cor do texto</h2>
+                <h2 className="text-xl col-span-3 text-white font-semibold">Cores</h2>
+                <h3 className='text-white'>Cor do texto</h3>
                 <input
                   type='color'
                   value={textArray.header[0].color}
                   onChange={handleTextColorChange}
+                />
+                <h3 className='text-white'>Cor do fundo</h3>
+                <input
+                  type='color'
+                  value={backgroundContainer}
+                  onChange={handleBackgroundColorContainerChange}
                 />
               </Container>
 
