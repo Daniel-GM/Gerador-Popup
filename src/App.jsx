@@ -5,6 +5,7 @@ import iconOptions from './assets/components/iconOptions'
 import { useState } from 'react'
 import Container from './assets/components/Container'
 import PopupViewer from './assets/components/PopupViewer'
+import { toPng } from 'html-to-image'
 
 function App() {
   const [logo, setLogo] = useState('/logo/logo.png')
@@ -178,6 +179,33 @@ function App() {
     }))
   }
 
+  const handleDownload = () => {
+    const element = document.getElementById('popup')
+
+    const originalStyle = {
+      width: element.style.width,
+      height: element.style.height,
+    }
+
+    element.style.width = "1080px"
+    element.style.height = "1920px"
+
+    toPng(element)
+      .then((dataUrl) => {
+        const link = document.createElement('a')
+        link.download = 'popup.png'
+        link.href = dataUrl
+        link.click()
+      })
+      .catch((err) => {
+        console.error('Erro ao gerar a imagem:', err)
+      })
+      .finally(() => {
+        element.style.width = originalStyle.width
+        element.style.height = originalStyle.height
+      })
+  }
+
   return (
     <>
       <div className="min-h-screen bg-gray-900 h-full">
@@ -231,10 +259,10 @@ function App() {
               </Container>
 
               {/* icons config */}
-              <Container additionalStyle='bg-gray-900/50 p-4 mb-2'>
+              <Container additionalStyle='bg-gray-900/50 p-4'>
                 <h2 className="text-xl col-span-3 text-white font-semibold">Icones</h2>
                 <div className='flex flex-col gap-3'>
-                  <div className='w-full flex flex-wrap items-center p-2 gap-6 overflow-auto h-[160px]'>
+                  <div className='w-full flex flex-wrap items-center p-2 gap-6 overflow-auto h-[170px]'>
                     {iconOptions.map((option, index) => {
                       const isSelected = textArray.step[0].icons.includes(option.icon)
                       return (
@@ -259,6 +287,8 @@ function App() {
                   </div>
                 </div>
               </Container>
+              
+              <div className='py-1 col-start-2 text-center bg-[#017365] hover:bg-[#00a58f] text-white hover:text-black transition duration-300 rounded-full' onClick={handleDownload}>Download</div>
             </Container>
             <Container additionalStyle='bg-gray-800/50 p-6'>
               <PopupViewer logo={logo} contrast={contrast} textArray={textArray} backgroundContainer={backgroundContainer} colorIcons={colorIcons} backgroundIcons={backgroundIcons} />

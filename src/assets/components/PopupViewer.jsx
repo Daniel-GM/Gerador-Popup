@@ -10,6 +10,7 @@ const PopupViewer = ({ logo, textArray, backgroundContainer, colorIcons, backgro
   return (
     <div className="w-full flex justify-center">
       <div
+        id="popup"
         className="w-[1080px] h-[1920px] flex flex-col p-12 items-center justify-between gap-5"
         style={stylesBackground}
       >
@@ -123,7 +124,7 @@ const PopupViewer = ({ logo, textArray, backgroundContainer, colorIcons, backgro
             label={textArray.button[0].label}
             size={textArray.button[0].size}
             weight={textArray.button[0].weight}
-            color={textArray.button[0].color}
+            color={contrast}
             backgroundColor={textArray.button[0].backgroundColor}
             additionalStyle="w-[325px] p-1 rounded-xl pt-4 leading-none"
           />
