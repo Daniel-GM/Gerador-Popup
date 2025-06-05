@@ -33,6 +33,23 @@ const iconOptions = [
   { icon: '/icons/order/food/uva.svg', label: 'Uva' },
   { icon: '/icons/order/food/vegetariano.png', label: 'Vegetariano' },
   { icon: '/icons/order/food/vinho-pao-queijo.svg', label: 'Vinho, pão e queijo' },
+  { icon: '/icons/order/food/ovo-salada.svg', label: 'Ovo e salada' },
+  
+  { icon: '/icons/order/drink/cafe.svg', label: 'Café' },
+  { icon: '/icons/order/drink/cerveja.svg', label: 'Cerveja' },
+  { icon: '/icons/order/drink/cha.png', label: 'cha' },
+  { icon: '/icons/order/drink/drink.svg', label: 'Drink' },
+  { icon: '/icons/order/drink/drinks.svg', label: 'Drinks' },
+  { icon: '/icons/order/drink/espumante.png', label: 'Espumante' },
+  { icon: '/icons/order/drink/gin.png', label: 'Gin' },
+  { icon: '/icons/order/drink/licor.png', label: 'Licor' },
+  { icon: '/icons/order/drink/refrigerante.svg', label: 'Refrigerante' },
+  { icon: '/icons/order/drink/rum.png', label: 'Rum' },
+  { icon: '/icons/order/drink/tequila.png', label: 'Tequila' },
+  { icon: '/icons/order/drink/vinho.svg', label: 'Vinho' },
+  { icon: '/icons/order/drink/vodka.png', label: 'Vodka' },
+  { icon: '/icons/order/drink/whisky.png', label: 'Whisky' },
+  
 ]
 
 export default iconOptions
