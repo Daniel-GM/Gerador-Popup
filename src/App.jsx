@@ -11,6 +11,7 @@ function App() {
   const [backgroundContainer, setBackgroundContainer] = useState('#ffffff')
   const [colorIcons, setColorIcons] = useState('#000000')
   const [backgroundIcons, setBackgroundIcons] = useState('#017365')
+  const [contrast, setContrast] = useState('#ffffff')
   const [textArray, setTextArray] = useState({
     header: [
       { id: 1, size: '53', weight: 'font-cardium-400', label: 'Seja Bem Vindo(a) ao Pede Aí,', color: '#017365', },
@@ -101,6 +102,7 @@ function App() {
       ),
     }))
     handleBackgroundColorIconChange(newColor)
+    setContrast(handleCalculateContrast(newColor))
   }
 
   const handleBackgroundColorIconChange = (newColor) => {
@@ -110,7 +112,7 @@ function App() {
   const handleBackgroundColorContainerChange = (e) => {
     const newColor = e.target.value
     setBackgroundContainer(newColor)
-    handleCalculateContrast(newColor)
+    handleBlackWhiteChange(handleCalculateContrast(newColor))
   }
 
   const handleLogoChange = (e) => {
@@ -151,7 +153,7 @@ function App() {
     const green = parseInt(hex.substring(2, 4), 16)
     const blue = parseInt(hex.substring(4, 6), 16)
     const luminance = 0.2126 * red + 0.7152 * green + 0.0722 * blue
-    handleBlackWhiteChange(luminance > 127.5 ? "#000000" : "#ffffff")
+    return luminance > 127.5 ? "#000000" : "#ffffff"
   }
 
   const handleBlackWhiteChange = (newColor) => {
@@ -240,7 +242,7 @@ function App() {
                           key={index}
                           className={`bg-white p-3 rounded-full h-[72px] ${isSelected ? 'ring-4 ring-green-500' : ''}`}
                           style={{
-                            backgroundColor: colorIcons === "#ffffff" ? '#000000' : '#ffffff'
+                            backgroundColor: textArray.header[0].color
                           }}
                           onClick={() => handleIconChange(option.icon)}
                         >
@@ -248,7 +250,7 @@ function App() {
                             src={option.icon || null}
                             className='w-12'
                             style={{
-                              filter: colorIcons === "#ffffff" ? 'invert(1)' : 'brightness(0)'
+                              filter: contrast === "#ffffff" ? 'invert(1)' : 'brightness(0)'
                             }}
                           />
                         </div>
@@ -259,7 +261,7 @@ function App() {
               </Container>
             </Container>
             <Container additionalStyle='bg-gray-800/50 p-6'>
-              <PopupViewer logo={logo} textArray={textArray} backgroundContainer={backgroundContainer} colorIcons={colorIcons} backgroundIcons={backgroundIcons} />
+              <PopupViewer logo={logo} contrast={contrast} textArray={textArray} backgroundContainer={backgroundContainer} colorIcons={colorIcons} backgroundIcons={backgroundIcons} />
             </Container>
           </div>
         </div>
