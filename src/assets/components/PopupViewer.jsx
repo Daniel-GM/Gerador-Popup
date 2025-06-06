@@ -8,10 +8,10 @@ const PopupViewer = ({ logo, configLogo, textArray, backgroundContainer, colorIc
   }
 
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full flex justify-start 2xl:justify-center overflow-auto">
       <div
         id="popup"
-        className="w-[1080px] h-[1920px] flex flex-col p-12 items-center justify-between gap-5"
+        className="min-w-[1080px] min-h-[1920px] flex flex-col p-12 items-center justify-between gap-5"
         style={stylesBackground}
       >
         {/* logo */}
