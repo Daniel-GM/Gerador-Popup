@@ -17,10 +17,10 @@ const PopupViewer = ({ logo, configLogo, textArray, backgroundContainer, colorIc
         {/* logo */}
         <div className="w-[400px] h-[260px] flex justify-center items-center">
           <img
-            className=""
+            className="max-w-[400px] max-h-[260px]"
             style={{
-              width: `${configLogo["width"]}px`,
-              height: `${configLogo["height"]}px`,
+              width: configLogo.width === "auto" ? "auto" : `${configLogo.width}px`,
+              height: configLogo.height === "auto" ? "auto" : `${configLogo.height}px`,
             }}
             src={logo}
           ></img>

@@ -1,5 +1,6 @@
 // importing icons
 import iconOptions from './assets/components/iconOptions'
+import { FaDownload, FaUpload, FaArrowsAltV, FaExpand } from 'react-icons/fa'
 
 // importing React
 import { useState } from 'react'
@@ -133,14 +134,6 @@ function App() {
     }
   }
 
-  const handleConfigLogoChange = (e, id) => {
-    const newSize = e.target.value
-    setConfigLogo({
-      ...configLogo,
-      [id]: newSize
-    })
-  }
-
   const handleCalculateContrast = (e) => {
     const hex = e.replace('#', '')
     const red = parseInt(hex.substring(0, 2), 16)
@@ -199,6 +192,21 @@ function App() {
       })
   }
 
+  const handleConfigLogoChange = (e, id) => {
+    const newSize = e.target.value
+    setConfigLogo({
+      ...configLogo,
+      [id]: newSize
+    })
+  }
+
+  const handleDefaultSizeLogo = (e) => {
+    setConfigLogo((prev) => ({
+      ...prev,
+      ...(e === "height" ? { width: "260", height: "auto" } : { width: "auto", height: "auto" })
+    }))
+  }
+
   return (
     <>
       <div className="min-h-screen bg-gray-900 h-full">
@@ -221,9 +229,10 @@ function App() {
                   <img
                     src={logo}
                     alt="logo"
+                    className='max-h-[87px]'
                     style={{
-                      width: `${configLogo["width"] / 3}px`,
-                      height: `${configLogo["height"] / 3}px`,
+                      width: configLogo.width === "auto" ? "auto" : `${configLogo.width / 3}px`,
+                      height: configLogo.height === "auto" ? "auto" : `${configLogo.height / 3}px`,
                     }}
                     onClick={handleLogoChange}
                   />
@@ -231,13 +240,28 @@ function App() {
                 <div className='text-white'>
                   <InputSize label={"Largura"} valueSize={configLogo} axis={"width"} max={400} handleConfigLogoChange={handleConfigLogoChange} />
                   <InputSize label={"Altura"} valueSize={configLogo} axis={"height"} max={260} handleConfigLogoChange={handleConfigLogoChange} />
+                  <div className='flex gap-2'>
+                    <button
+                      className='bg-white text-black px-2 py-1 rounded-2xl cursor-pointer w-1/2 flex items-center justify-center gap-2'
+                      onClick={() => (handleDefaultSizeLogo("all"))}
+                    ><FaExpand />
+                      Melhor proporção
+                    </button>
+                    <button
+                      className='bg-white text-black px-2 py-1 rounded-2xl cursor-pointer w-1/2 flex items-center justify-center gap-2'
+                      onClick={() => (handleDefaultSizeLogo("height"))}
+                    ><FaArrowsAltV />
+                      Altura automática
+                    </button>
+                  </div>
+
                 </div>
                 <div className='flex flex-col justify-center items-center gap-3'>
                   <button
                     name="logo"
-                    className='bg-white text-black px-2 py-1 rounded-2xl cursor-pointer w-full'
+                    className='bg-white text-black px-2 py-1 rounded-2xl cursor-pointer w-full flex items-center justify-center gap-2'
                     onClick={() => document.getElementById("logo").click()}
-                  >
+                  ><FaUpload />
                     Adicionar a logo do cliente
                   </button>
                 </div>
@@ -291,7 +315,12 @@ function App() {
                 </div>
               </Container>
 
-              <div className='py-1 col-start-2 text-center bg-[#017365] hover:bg-[#00a58f] text-white hover:text-black transition duration-300 rounded-full' onClick={handleDownload}>Download</div>
+              <div 
+                className='py-1 col-start-2 text-center bg-[#017365] hover:bg-[#00a58f] text-white hover:text-black transition duration-300 rounded-full flex items-center justify-center gap-2' 
+                onClick={handleDownload}
+              ><FaDownload />
+                Download
+              </div>
             </Container>
             <Container additionalStyle='bg-gray-800/50 p-6'>
               <PopupViewer logo={logo} configLogo={configLogo} contrast={contrast} textArray={textArray} backgroundContainer={backgroundContainer} colorIcons={colorIcons} backgroundIcons={backgroundIcons} />
