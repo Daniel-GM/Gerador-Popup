@@ -10,7 +10,7 @@ import InputSize from './assets/components/InputSize'
 
 function App() {
   const [logo, setLogo] = useState('/logo/logo.png')
-  const [configLogo, setConfigLogo] = useState({ width: "20", height: "50", })
+  const [configLogo, setConfigLogo] = useState({ width: "260", height: "260", })
   const [backgroundContainer, setBackgroundContainer] = useState('#ffffff')
   const [colorIcons, setColorIcons] = useState('#000000')
   const [backgroundIcons, setBackgroundIcons] = useState('#017365')
@@ -208,13 +208,9 @@ function App() {
               <h1 className="text-3xl col-span-3 text-white font-semibold">Configurações</h1>
 
               {/* Logo config */}
-              <Container additionalStyle='bg-gray-900/50 p-4'>
+              <Container additionalStyle='bg-gray-900/50 p-4 flex flex-col justify-between'>
                 <h2 className="text-xl col-span-3 text-white font-semibold mb-2">Logo do cliente</h2>
-                <div className='flex flex-col justify-center items-center gap-3'>
-                  <div className='flex flex-col text-white'>
-                    <InputSize label={"Largura"} valueSize={configLogo} axis={"width"} max={400} handleConfigLogoChange={handleConfigLogoChange} />
-                    <InputSize label={"Altura"} valueSize={configLogo} axis={"height"} max={260} handleConfigLogoChange={handleConfigLogoChange} />
-                  </div>
+                <div className='h-[87px] flex items-center justify-center'>
                   <input
                     id="logo"
                     type="file"
@@ -225,9 +221,18 @@ function App() {
                   <img
                     src={logo}
                     alt="logo"
-                    className='w-[115px] h-[115px]'
+                    style={{
+                      width: `${configLogo["width"] / 3}px`,
+                      height: `${configLogo["height"] / 3}px`,
+                    }}
                     onClick={handleLogoChange}
                   />
+                </div>
+                <div className='text-white'>
+                  <InputSize label={"Largura"} valueSize={configLogo} axis={"width"} max={400} handleConfigLogoChange={handleConfigLogoChange} />
+                  <InputSize label={"Altura"} valueSize={configLogo} axis={"height"} max={260} handleConfigLogoChange={handleConfigLogoChange} />
+                </div>
+                <div className='flex flex-col justify-center items-center gap-3'>
                   <button
                     name="logo"
                     className='bg-white text-black px-2 py-1 rounded-2xl cursor-pointer w-full'
@@ -265,9 +270,8 @@ function App() {
                       return (
                         <div
                           key={index}
-                          className={`p-3 rounded-full h-16 w-16 flex items-center justify-center transition-all duration-200 ${
-                            isSelected ? 'ring-4 ring-green-500' : ''
-                          }`}
+                          className={`p-3 rounded-full h-16 w-16 flex items-center justify-center transition-all duration-200 ${isSelected ? 'ring-4 ring-green-500' : ''
+                            }`}
                           style={{
                             backgroundColor: textArray.header[0].color
                           }}
