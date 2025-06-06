@@ -1,7 +1,7 @@
 import Span from "./Span"
 import TextContainer from "./TextContainer"
 
-const PopupViewer = ({ logo, textArray, backgroundContainer, colorIcons, backgroundIcons, contrast }) => {
+const PopupViewer = ({ logo, configLogo, textArray, backgroundContainer, colorIcons, backgroundIcons, contrast }) => {
 
   const stylesBackground = {
     backgroundColor: backgroundContainer || '#ffffff'
@@ -15,9 +15,13 @@ const PopupViewer = ({ logo, textArray, backgroundContainer, colorIcons, backgro
         style={stylesBackground}
       >
         {/* logo */}
-        <div className="w-[260px] h-[260px] flex justify-center items-center">
+        <div className="w-[400px] h-[260px] flex justify-center items-center">
           <img
-            className="max-h-[260px] max-w-[260px]"
+            className=""
+            style={{
+              width: `${configLogo["width"]}px`,
+              height: `${configLogo["height"]}px`,
+            }}
             src={logo}
           ></img>
         </div>

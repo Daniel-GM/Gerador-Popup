@@ -6,9 +6,11 @@ import { useState } from 'react'
 import Container from './assets/components/Container'
 import PopupViewer from './assets/components/PopupViewer'
 import { toPng } from 'html-to-image'
+import InputSize from './assets/components/InputSize'
 
 function App() {
   const [logo, setLogo] = useState('/logo/logo.png')
+  const [configLogo, setConfigLogo] = useState({ width: "20", height: "50", })
   const [backgroundContainer, setBackgroundContainer] = useState('#ffffff')
   const [colorIcons, setColorIcons] = useState('#000000')
   const [backgroundIcons, setBackgroundIcons] = useState('#017365')
@@ -131,22 +133,13 @@ function App() {
     }
   }
 
-  // const handleIconChange = (e, stepIndex, iconIndex) => {
-  //   const newIcon = e.target.value
-  //   setTextArray(prevTextArray => ({
-  //     ...prevTextArray,
-  //     step: prevTextArray.step.map((stepItem, index) => {
-  //       if (index !== stepIndex) return stepItem
-
-  //       const newIcons = [...stepItem.icons]
-  //       newIcons[iconIndex] = newIcon
-  //       return {
-  //         ...stepItem,
-  //         icons: newIcons
-  //       }
-  //     })
-  //   }))
-  // }
+  const handleConfigLogoChange = (e, id) => {
+    const newSize = e.target.value
+    setConfigLogo({
+      ...configLogo,
+      [id]: newSize
+    })
+  }
 
   const handleCalculateContrast = (e) => {
     const hex = e.replace('#', '')
@@ -218,6 +211,10 @@ function App() {
               <Container additionalStyle='bg-gray-900/50 p-4'>
                 <h2 className="text-xl col-span-3 text-white font-semibold mb-2">Logo do cliente</h2>
                 <div className='flex flex-col justify-center items-center gap-3'>
+                  <div className='flex flex-col text-white'>
+                    <InputSize label={"Largura"} valueSize={configLogo} axis={"width"} max={400} handleConfigLogoChange={handleConfigLogoChange} />
+                    <InputSize label={"Altura"} valueSize={configLogo} axis={"height"} max={260} handleConfigLogoChange={handleConfigLogoChange} />
+                  </div>
                   <input
                     id="logo"
                     type="file"
@@ -259,16 +256,18 @@ function App() {
               </Container>
 
               {/* icons config */}
-              <Container additionalStyle='bg-gray-900/50 p-4'>
+              <Container additionalStyle='bg-gray-900/50 p-4 h-[350px] flex flex-col'>
                 <h2 className="text-xl col-span-3 text-white font-semibold">Icones</h2>
-                <div className='flex flex-col gap-3'>
-                  <div className='w-full flex flex-wrap items-center p-2 gap-6 overflow-auto h-[170px]'>
+                <div className='flex flex-col gap-3 overflow-auto w-full'>
+                  <div className='flex flex-wrap items-center p-2 gap-6'>
                     {iconOptions.map((option, index) => {
                       const isSelected = textArray.step[0].icons.includes(option.icon)
                       return (
                         <div
                           key={index}
-                          className={`bg-white p-3 rounded-full h-[72px] ${isSelected ? 'ring-4 ring-green-500' : ''}`}
+                          className={`p-3 rounded-full h-16 w-16 flex items-center justify-center transition-all duration-200 ${
+                            isSelected ? 'ring-4 ring-green-500' : ''
+                          }`}
                           style={{
                             backgroundColor: textArray.header[0].color
                           }}
@@ -287,11 +286,11 @@ function App() {
                   </div>
                 </div>
               </Container>
-              
+
               <div className='py-1 col-start-2 text-center bg-[#017365] hover:bg-[#00a58f] text-white hover:text-black transition duration-300 rounded-full' onClick={handleDownload}>Download</div>
             </Container>
             <Container additionalStyle='bg-gray-800/50 p-6'>
-              <PopupViewer logo={logo} contrast={contrast} textArray={textArray} backgroundContainer={backgroundContainer} colorIcons={colorIcons} backgroundIcons={backgroundIcons} />
+              <PopupViewer logo={logo} configLogo={configLogo} contrast={contrast} textArray={textArray} backgroundContainer={backgroundContainer} colorIcons={colorIcons} backgroundIcons={backgroundIcons} />
             </Container>
           </div>
         </div>
