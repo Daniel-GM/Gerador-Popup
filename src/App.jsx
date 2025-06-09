@@ -318,7 +318,7 @@ function App() {
               </Container>
 
               <div 
-                className='py-2 px-4 xl:py-1 col-start-2 text-center bg-[#017365] hover:bg-[#00a58f] text-white hover:text-black transition duration-300 rounded-full flex items-center justify-center gap-2' 
+                className='py-2 px-4 xl:py-1 col-start-2 text-center cursor-pointer bg-[#017365] hover:bg-[#00a58f] text-white hover:text-black transition duration-300 rounded-full flex items-center justify-center gap-2' 
                 onClick={handleDownload}
               ><FaDownload />
                 Download
