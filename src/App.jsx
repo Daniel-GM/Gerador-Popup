@@ -203,7 +203,7 @@ function App() {
   const handleDefaultSizeLogo = (e) => {
     setConfigLogo((prev) => ({
       ...prev,
-      ...(e === "height" ? { width: "260", height: "auto" } : { width: "auto", height: "auto" })
+      ...(e === "height" ? { height: "auto" } : { width: "auto", height: "auto" })
     }))
   }
 
