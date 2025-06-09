@@ -212,11 +212,11 @@ function App() {
       <div className="min-h-screen bg-gray-900 h-full">
         <div className="container mx-auto p-6 h-full md:w-auto w-full">
           <div className="grid grid-cols-1 h-full">
-            <Container additionalStyle='grid grid-cols-3 gap-4 bg-gray-800/50 p-6'>
+            <Container additionalStyle='grid grid-cols-1 xl:grid-cols-3 gap-4 bg-gray-800/50 p-6'>
               <h1 className="text-3xl col-span-3 text-white font-semibold">Configurações</h1>
 
               {/* Logo config */}
-              <Container additionalStyle='bg-gray-900/50 p-4 flex flex-col justify-between'>
+              <Container additionalStyle='bg-gray-900/50 p-4 flex flex-col justify-between col-span-3 xl:col-span-1'>
                 <h2 className="text-xl col-span-3 text-white font-semibold mb-2">Logo do cliente</h2>
                 <div className='h-[87px] flex items-center justify-center'>
                   <input
@@ -240,15 +240,15 @@ function App() {
                 <div className='text-white'>
                   <InputSize label={"Largura"} valueSize={configLogo} axis={"width"} max={400} handleConfigLogoChange={handleConfigLogoChange} />
                   <InputSize label={"Altura"} valueSize={configLogo} axis={"height"} max={260} handleConfigLogoChange={handleConfigLogoChange} />
-                  <div className='flex gap-2'>
+                  <div className='flex flex-col md:flex-row gap-2'>
                     <button
-                      className='bg-white text-black px-2 py-1 rounded-2xl cursor-pointer w-1/2 flex items-center justify-center gap-2'
+                      className='bg-white text-black text-sm md:text-base px-2 py-1 rounded-2xl cursor-pointer w-full md:w-1/2 flex items-center justify-center gap-2'
                       onClick={() => (handleDefaultSizeLogo("all"))}
                     ><FaExpand />
                       Melhor proporção
                     </button>
                     <button
-                      className='bg-white text-black px-2 py-1 rounded-2xl cursor-pointer w-1/2 flex items-center justify-center gap-2'
+                      className='bg-white text-black text-sm md:text-base px-2 py-1 rounded-2xl cursor-pointer w-full md:w-1/2 flex items-center justify-center gap-2'
                       onClick={() => (handleDefaultSizeLogo("height"))}
                     ><FaArrowsAltV />
                       Altura automática
@@ -256,7 +256,7 @@ function App() {
                   </div>
 
                 </div>
-                <div className='flex flex-col justify-center items-center gap-3'>
+                <div className='mt-2 text-sm md:text-base'>
                   <button
                     name="logo"
                     className='bg-white text-black px-2 py-1 rounded-2xl cursor-pointer w-full flex items-center justify-center gap-2'
@@ -268,27 +268,29 @@ function App() {
               </Container>
 
               {/* Color config */}
-              <Container additionalStyle='bg-gray-900/50 p-4'>
+              <Container additionalStyle='bg-gray-900/50 p-4 col-span-3 xl:col-span-1 w-full'>
                 <h2 className="text-xl col-span-3 text-white font-semibold">Cores</h2>
-                <h3 className='text-white'>Cor do texto</h3>
+                <h3 className='text-white w-full'>Cor do texto</h3>
                 <input
                   type='color'
+                  className='inputStyle w-full'
                   value={textArray.header[0].color}
                   onChange={handleTextColorChange}
                 />
-                <h3 className='text-white'>Cor do fundo</h3>
+                <h3 className='text-white w-full'>Cor do fundo</h3>
                 <input
                   type='color'
+                  className='inputStyle w-full'
                   value={backgroundContainer}
                   onChange={handleBackgroundColorContainerChange}
                 />
               </Container>
 
               {/* icons config */}
-              <Container additionalStyle='bg-gray-900/50 p-4 h-[350px] flex flex-col'>
+              <Container additionalStyle='bg-gray-900/50 p-4 h-[350px] flex flex-col col-span-3 xl:col-span-1'>
                 <h2 className="text-xl col-span-3 text-white font-semibold">Icones</h2>
                 <div className='flex flex-col gap-3 overflow-auto w-full'>
-                  <div className='flex flex-wrap items-center p-2 gap-6'>
+                  <div className='flex flex-wrap justify-around items-center p-2 gap-6'>
                     {iconOptions.map((option, index) => {
                       const isSelected = textArray.step[0].icons.includes(option.icon)
                       return (
@@ -316,7 +318,7 @@ function App() {
               </Container>
 
               <div 
-                className='py-1 col-start-2 text-center bg-[#017365] hover:bg-[#00a58f] text-white hover:text-black transition duration-300 rounded-full flex items-center justify-center gap-2' 
+                className='py-2 px-4 xl:py-1 col-start-2 text-center bg-[#017365] hover:bg-[#00a58f] text-white hover:text-black transition duration-300 rounded-full flex items-center justify-center gap-2' 
                 onClick={handleDownload}
               ><FaDownload />
                 Download

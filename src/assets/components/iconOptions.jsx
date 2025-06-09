@@ -1,5 +1,4 @@
 const iconOptions = [
-  { icon: '', label: 'Selecione um icone' },
   { icon: '/icons/order/food/arroz-japones.svg', label: 'Arroz Japones' },
   { icon: '/icons/order/food/bife.svg', label: 'Bife' },
   { icon: '/icons/order/food/bolo.svg', label: 'Bolo' },

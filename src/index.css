@@ -58,3 +58,39 @@
 .card {
   -webkit-backdrop-filter: blur(16px) saturate(180%);
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #1e2939;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* input:color style */
+.inputStyle {
+  -webkit-appearance: none;
+  -moz-appearance: none;  
+  appearance: none;
+  background-color: transparent;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+.inputStyle::-webkit-color-swatch {
+  border-radius: 200px;
+}
